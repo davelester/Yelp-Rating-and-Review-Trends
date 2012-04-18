@@ -18,10 +18,10 @@ class MRCountYelpReviewsPerBusinesses(MRJob):
 			yield biz_id, (rating, date)
 
 	def reducer(self, biz_id, value):
-		rating, date = izip(*value)
+		ratings, dates = izip(*value)
 
-		for foo in rating:
-			yield biz_id, foo
+		for rating in ratings:
+			yield biz_id, rating
 
 	def finale(self, key, value):
 		yield key, list(value)
