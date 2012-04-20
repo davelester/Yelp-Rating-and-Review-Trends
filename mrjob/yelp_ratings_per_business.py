@@ -7,7 +7,7 @@ from mrjob.job import MRJob
 from mrjob.protocol import JSONValueProtocol
 from itertools import izip
 
-class MRCountYelpReviewsPerBusinesses(MRJob):
+class MRRatingsPerBusinesses(MRJob):
 	INPUT_PROTOCOL = JSONValueProtocol
 
 	def mapper(self, _, review):
@@ -31,4 +31,4 @@ class MRCountYelpReviewsPerBusinesses(MRJob):
 				self.mr(reducer=self.finale)]
 
 if __name__ == '__main__':
-	MRCountYelpReviewsPerBusinesses.run()
+	MRRatingsPerBusinesses.run()
