@@ -6,6 +6,7 @@ Output list of top words for each business id
 from mrjob.job import MRJob
 from mrjob.protocol import JSONValueProtocol
 from itertools import izip
+from operator import itemgetter, attrgetter
 import itertools
 import re
 
@@ -32,9 +33,12 @@ class MRTopWordsPerBusiness(MRJob):
 				else:
 					review_words[word] += 1
 		
-		sorted(review_words.values())
+		# sorted(review_words.values())
+		# 
+		# 
+		# value = sorted(review_words.items(), key=itemgetter(1))
 		
-		x = itertools.islice(review_words.items(), 0, 5)
+		x = itertools.islice(sorted(review_words.items(), key=itemgetter(1), reverse=True), 0, 5)
 
 		list_of_top_words = []
 		for key, value in x:
