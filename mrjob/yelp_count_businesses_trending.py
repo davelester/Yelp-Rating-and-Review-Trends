@@ -1,5 +1,5 @@
 """
-Output whether or not a business' ratings are trending, decreasing, or remaining the same
+Out number of businesses that are trending.
 
 """
 
@@ -38,10 +38,14 @@ class MRRatingsLinearRegressionTrending(MRJob):
 		# possible change/todo: whether or not a rating is trending may depend on the value of std_err
 
 		if (slope > 0.6) and (len(x) >= 5):
-			yield biz_id, ('slope: ' + str(slope), ratings)
+			yield 'Number of trending businesses: ', 1
 			
+	def final(self, key, value):
+		yield key, sum(value)
+
 	def steps(self):
-		return [self.mr(self.mapper, self.reducer)]
+		return [self.mr(self.mapper, self.reducer),
+				self.mr(reducer=self.final)]
 
 if __name__ == '__main__':
 	MRRatingsLinearRegressionTrending.run()
