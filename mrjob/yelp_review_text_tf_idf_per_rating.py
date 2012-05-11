@@ -35,7 +35,7 @@ class MRTopWordsPerBusinessPerRating(MRJob):
 #			words = list(set(word_list) - set(nltk.corpus.stopwords.words('english')))
 			
 			for word in word_list:
-				key = str(ratings[counter]) + word + " "
+				key = str(ratings) + " " + word
 				if word not in review_words:
 					review_words[key] = 1
 				else:
